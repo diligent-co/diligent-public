@@ -1,0 +1,67 @@
+# If you prefer the allow list template instead of the deny list, see community template:
+# https://github.com/github/gitignore/blob/main/community/Golang/Go.AllowList.gitignore
+#
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+# Dependency directories (remove the comment below to include it)
+# vendor/
+
+# Go workspace file
+go.work
+go.work.sum
+
+# env file
+.env
+
+# data, logs, generated files
+*/data/*
+*/tensorboard-logs/*
+*/**/__pycache__
+*/**/__debug*
+
+# config files
+config.yaml
+config**.yaml
+!config.template.yaml
+
+# node and pnpm
+*/**/node_modules
+package-lock.json
+pnpm-lock.yaml
+
+# data
+data/*
+*.csv
+!*/**/test/data/XBTUSD.csv
+!*/**/test/data/ETHUSD.csv
+!*/**/test/data/SOLUSD.csv
+*/**/tensorboard-logs/*
+
+# python stuff
+dist/
+*.egg-info/
+*/**/__pycache__
+*/**/.pytest_cache
+# ignore any/all .DS_Store files
+.DS_Store
+
+# .venv
+.venv
+venv/
+ENV/
+
+# terraform
+*/**/.terraform
+*/**/.terraform.lock.hcl
+*/**/terraform.tfstate*

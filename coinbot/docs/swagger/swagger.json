@@ -1,0 +1,101 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Data structure for command messages",
+        "title": "Coinbot API",
+        "contact": {},
+        "version": "1.0"
+    },
+    "host": "localhost:8080",
+    "basePath": "/",
+    "paths": {
+        "/health": {
+            "get": {
+                "description": "Returns health status of the Coinbot service",
+                "produces": [
+                    "text/plain"
+                ],
+                "tags": [
+                    "health"
+                ],
+                "summary": "Health check endpoint",
+                "responses": {
+                    "200": {
+                        "description": "Coinbot is healthy",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/swagger": {
+            "get": {
+                "description": "Serves Swagger API documentation UI and JSON spec",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json",
+                    "text/html"
+                ],
+                "tags": [
+                    "docs"
+                ],
+                "summary": "Swagger documentation endpoint",
+                "responses": {
+                    "200": {
+                        "description": "Swagger documentation UI",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/ws": {
+            "get": {
+                "description": "Establishes WebSocket connection for real-time communication",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "websocket"
+                ],
+                "summary": "WebSocket connection endpoint",
+                "responses": {
+                    "101": {
+                        "description": "Switching protocols to websocket",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "server.WebSocketResponse": {
+            "description": "Response structure for WebSocket communication",
+            "type": "object",
+            "properties": {
+                "data": {
+                    "description": "Response payload data\nRequired: false"
+                },
+                "error": {
+                    "description": "Error message if operation failed\nRequired: false",
+                    "type": "string",
+                    "example": "Failed to process message"
+                },
+                "success": {
+                    "description": "Whether the operation was successful\nRequired: true",
+                    "type": "boolean",
+                    "example": true
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,14 @@
+kraken:
+  ws_version: 2
+  api_key: 
+  api_secret:
+postgres:
+  host: localhost
+  database: postgres
+  user: postgres
+  password: postgres
+  port: 5432
+  ssl:
+    mode: disable
+
+    

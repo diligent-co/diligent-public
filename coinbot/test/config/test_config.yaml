@@ -1,0 +1,74 @@
+initial_balance: 10000.0
+data_dir: "../../test/data" # relative to coinbot/src/backtest/main.go
+assets: ['XBT', 'ETH', 'USD', 'SOL']
+start_time: "2021-06-17T15:33:00Z"
+end_time: "2021-06-27T15:33:00Z"
+
+metrics_writer:
+  ws_writer: false
+  file_writer: true
+  file_path: "../../test/logs/logs/portfolio_metrics.csv" # relative to coinbot/src/backtest/main.go
+
+strategy:
+  type: "simple_momentum"
+  step_cadence: "1m"
+  is_real_time: false
+  aggregators:
+    - name: "XBT_ma_short"
+      aggregator_type: "hybrid"
+      input_feed_name: "XBT"
+      window_size_seconds: 3600    # 1 hour
+      emit_cadence_seconds: 60     # 1 minute
+      aggregator_func: "mean"
+      input_fields: ["price"]
+      output_fields: ["XBT_ma_short"]
+    
+    - name: "XBT_ma_long"
+      aggregator_type: "hybrid"
+      input_feed_name: "XBT"
+      window_size_seconds: 21600     # 6 hours
+      emit_cadence_seconds: 60     # 1 minute
+      aggregator_func: "mean"
+      input_fields: ["price"]
+      output_fields: ["XBT_ma_long"]
+
+    - name: "XBT_volatility"
+      aggregator_type: "hybrid"
+      input_feed_name: "XBT"
+      window_size_seconds: 3600
+      emit_cadence_seconds: 60
+      aggregator_func: "stddev"
+      input_fields: ["price"]
+      output_fields: ["XBT_volatility"]
+
+    - name: "ETH_ma_short"
+      aggregator_type: "hybrid"
+      input_feed_name: "ETH"
+      window_size_seconds: 3600
+      emit_cadence_seconds: 60
+      aggregator_func: "mean"
+      input_fields: ["price"]
+      output_fields: ["ETH_ma_short"]
+
+    - name: "ETH_ma_long"
+      aggregator_type: "hybrid"
+      input_feed_name: "ETH"
+      window_size_seconds: 21600
+      emit_cadence_seconds: 60
+      aggregator_func: "mean"
+      input_fields: ["price"]
+      output_fields: ["ETH_ma_long"]
+
+    - name: "ETH_volatility"
+      aggregator_type: "hybrid"
+      input_feed_name: "ETH"
+      window_size_seconds: 3600
+      emit_cadence_seconds: 60
+      aggregator_func: "stddev"
+      input_fields: ["price"]
+      output_fields: ["ETH_volatility"]
+
+  signal_func:
+    assets: ['XBT', 'ETH']
+    signal_func_name: "momentum_signal"
+    input_fields: ["XBT_ma_short", "ETH_ma_short", "XBT_ma_long", "ETH_ma_long"]

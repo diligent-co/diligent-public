@@ -1,0 +1,74 @@
+basePath: /
+definitions:
+  server.WebSocketResponse:
+    description: Response structure for WebSocket communication
+    properties:
+      data:
+        description: |-
+          Response payload data
+          Required: false
+      error:
+        description: |-
+          Error message if operation failed
+          Required: false
+        example: Failed to process message
+        type: string
+      success:
+        description: |-
+          Whether the operation was successful
+          Required: true
+        example: true
+        type: boolean
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: Data structure for command messages
+  title: Coinbot API
+  version: "1.0"
+paths:
+  /health:
+    get:
+      description: Returns health status of the Coinbot service
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: Coinbot is healthy
+          schema:
+            type: string
+      summary: Health check endpoint
+      tags:
+      - health
+  /swagger:
+    get:
+      consumes:
+      - application/json
+      description: Serves Swagger API documentation UI and JSON spec
+      produces:
+      - application/json
+      - text/html
+      responses:
+        "200":
+          description: Swagger documentation UI
+          schema:
+            type: string
+      summary: Swagger documentation endpoint
+      tags:
+      - docs
+  /ws:
+    get:
+      consumes:
+      - application/json
+      description: Establishes WebSocket connection for real-time communication
+      produces:
+      - application/json
+      responses:
+        "101":
+          description: Switching protocols to websocket
+          schema:
+            type: string
+      summary: WebSocket connection endpoint
+      tags:
+      - websocket
+swagger: "2.0"
